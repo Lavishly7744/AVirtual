@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Merchant Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Merchant Admin Dashboard</h1>
+        <a href="{{ url_for('logout') }}" class="btn btn-outline-danger">Logout</a>
+    </div>
+
+    <!-- Search Bar -->
+    <form method="get" action="/" class="input-group mb-4">
+        <input type="text" name="query" class="form-control" placeholder="Search by Card, Batch ID, Settlement ID, Wire ID..." value="{{ query }}">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+
+    <!-- Charges Section -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            Recent Charges
+        </div>
+        <div class="card-body">
+            {% if charges %}
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Card Number (PAN)</th>
+                                <th>Cardholder Name</th>
+                                <th>Status</th>
+                                <th>Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for charge in charges %}
+                            <tr>
+                                <td>{{ charge.pan }}</td>
+                                <td>{{ charge.cardholder }}</td>
+                                <td>{{ charge.status }}</td>
+                                <td>${{ "%.2f"|format(charge.balance if charge.balance != "Unlimited" else 999999) }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p>No charges found.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Batches Section -->
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            Captured Batches
+        </div>
+        <div class="card-body">
+            {% if batches %}
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Batch ID</th>
+                                <th>Total Amount</th>
+                                <th>Captured Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for batch in batches %}
+                            <tr>
+                                <td>{{ batch.batch_id }}</td>
+                                <td>${{ "%.2f"|format(batch.total_amount) }}</td>
+                                <td>{{ batch.timestamp }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p>No captured batches found.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Settlements Section -->
+    <div class="card mb-4">
+        <div class="card-header bg-info text-white">
+            ACH Settlements
+        </div>
+        <div class="card-body">
+            {% if settlements %}
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Settlement ID</th>
+                                <th>Batch ID</th>
+                                <th>Amount</th>
+                                <th>Settlement Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for settlement in settlements %}
+                            <tr>
+                                <td>{{ settlement.settlement_id }}</td>
+                                <td>{{ settlement.batch_id }}</td>
+                                <td>${{ "%.2f"|format(settlement.amount) }}</td>
+                                <td>{{ settlement.pushback_timestamp }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p>No ACH settlements found.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Wires Section -->
+    <div class="card mb-4">
+        <div class="card-header bg-warning text-dark">
+            Wire Transfers
+        </div>
+        <div class="card-body">
+            {% if wires %}
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Wire ID</th>
+                                <th>Origin Bank</th>
+                                <th>Amount</th>
+                                <th>Reference #</th>
+                                <th>Settlement Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for wire in wires %}
+                            <tr>
+                                <td>{{ wire.wire_transfer_id }}</td>
+                                <td>{{ wire.origin_bank }}</td>
+                                <td>${{ "%.2f"|format(wire.amount) }}</td>
+                                <td>{{ wire.reference_number }}</td>
+                                <td>{{ wire.settlement_date }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p>No wire transfers found.</p>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

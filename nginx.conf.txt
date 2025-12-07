@@ -1,0 +1,44 @@
+server {
+    listen 80;
+    server_name secure-amex.net www.secure-amex.net;
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+server {
+    listen 443 ssl;
+    server_name secure-amex.net www.secure-amex.net;
+
+    ssl_certificate /etc/letsencrypt/live/secure-amex.net/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/secure-amex.net/privkey.pem;
+
+    location /v1/ {
+        proxy_pass http://localhost:5700/;
+    }
+
+    location /amex_charge {
+        proxy_pass http://localhost:5600/amex_charge;
+    }
+
+    location /3ds-challenge {
+        proxy_pass http://localhost:5700/3ds-challenge;
+    }
+
+    location /bin {
+        proxy_pass http://localhost:5500;
+    }
+
+    location /iso_authorize {
+        proxy_pass http://localhost:5901/iso_authorize;
+    }
+
+    location /charges {
+        proxy_pass http://localhost:5600/charges;
+    }
+
+    location /admin {
+        proxy_pass http://localhost:5900/;
+    }
+}

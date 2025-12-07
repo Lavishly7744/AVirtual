@@ -1,0 +1,119 @@
+version: '3.8'
+
+services:
+  amex_gateway:
+    build: .
+    command: python amex_gateway.py
+    ports:
+      - "5100:5100"
+    restart: "always"
+
+  amexnet_server:
+    build: .
+    command: python amexnet_server.py
+    ports:
+      - "5000:5000"
+    restart: "always"
+
+  visanet_server:
+    build: .
+    command: python visanet_server.py
+    ports:
+      - "6000:6000"
+    restart: "always"
+
+  stripenet_server:
+    build: .
+    command: python stripenet_server.py
+    ports:
+      - "5001:5001"
+    restart: "always"
+
+  fake_clearinghouse:
+    build: .
+    command: python fake_clearinghouse.py
+    ports:
+      - "5200:5200"
+    restart: "always"
+
+  fake_ach_settlement:
+    build: .
+    command: python fake_ach_settlement.py
+    ports:
+      - "5300:5300"
+    restart: "always"
+
+  fake_settlement_server:
+    build: .
+    command: python fake_settlement_server.py
+    ports:
+      - "5907:5907"
+    restart: "always"
+
+  fake_funds_transfer:
+    build: .
+    command: python fake_funds_transfer.py
+    ports:
+      - "5800:5800"
+    restart: "always"
+
+  bin_responder:
+    build: .
+    command: python bin_responder.py
+    ports:
+      - "5400:5400"
+    restart: "always"
+
+  merchant_reporting_api:
+    build: .
+    command: python merchant_reporting_api.py
+    ports:
+      - "5500:5500"
+    restart: "always"
+
+  fake_ach_webhook:
+    build: .
+    command: python fake_ach_webhook.py
+    ports:
+      - "5600:5600"
+    restart: "always"
+
+  fake_bank_reports:
+    build: .
+    command: python fake_bank_reports.py
+    ports:
+      - "5700:5700"
+    restart: "always"
+
+  fake_merchant_admin:
+    build: ./fake_merchant_admin
+    command: python app.py
+    ports:
+      - "5900:5900"
+    restart: "always"
+
+  fake_3ds_server:
+    build: .
+    command: python fake_3ds_server.py
+    ports:
+      - "5950:5950"
+    restart: "always"
+
+  coredns_server:
+    image: coredns/coredns:latest
+    volumes:
+      - ./Corefile:/Corefile
+    ports:
+      - "53:53/udp"
+    restart: "always"
+
+  tor-proxy:
+    image: dperson/torproxy
+    ports:
+      - "9050:9050"
+    restart: "always"
+
+
+
+
+

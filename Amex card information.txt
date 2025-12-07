@@ -1,0 +1,46 @@
+mitmproxy --mode regular --listen-port 8080 --set ssl_insecure=true
+
+=== Amex Card Created ===
+PAN     : 371529401789598
+CVV     : 7095
+Expiry  : 12/27
+Name    : Amias Woods
+Address : 1045 Emily Renzelli Boulevard, Salinas, CA 93907
+Phone   : 831-663-2923
+Balance : Unlimited
+
+=== Amex Card Created ===
+PAN     : 371529376817317
+CVV     : 8456
+Expiry  : 08/26
+Name    : Mccoy Fowler
+Address : 3008 Rogers Street, Beallsville, PA 15313
+Phone   : 513-602-6157
+Balance : Unlimited
+
+=== Amex Card Created ===
+PAN     : 371529188371313
+CVV     : 5473
+Expiry  : 05/28
+Name    : Lennon Swanson
+Address : 4338 Ruckman Road, Shawnee, OK 74801
+Phone   : 405-878-5524
+Balance : Unlimited
+
+=== Amex Card Created ===
+PAN     : 371529555742872
+CVV     : 4499
+Expiry  : 03/30
+Name    : Jefferson Willis
+Address : 1964 Walton Street, Salt Lake City, UT 84104
+Phone   : 801-381-0735
+Balance : Unlimited
+
+=== Amex Card Created ===
+PAN     : 371529610276403
+CVV     : 4538
+Expiry  : 10/28
+Name    : Pierce Ortega
+Address : 1685 Horner Street, Cuyahoga Falls, OH 44221
+Phone   : 330-922-6872
+Balance : Unlimited

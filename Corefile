@@ -1,0 +1,13 @@
+.:53 {
+    log
+    errors
+    hosts {
+        127.0.0.1 secure.api.americanexpress.com
+        127.0.0.1 api.stripe.com
+        127.0.0.1 secure2.arcot.com
+        127.0.0.1 www.visa.com
+        127.0.0.1 api.visa.com
+        fallthrough
+    }
+    forward . 1.1.1.1 8.8.8.8
+}
